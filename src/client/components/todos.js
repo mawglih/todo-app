@@ -39,7 +39,7 @@ const baseCls = 'todos';
   console.log('todos in todos: ', todos);
   return (
     <ul className={baseCls}>
-      {Object.values(todos).map(todo => (
+      {todos.map(todo => (
         <Todo
           key={todo.id}
           status={todo.status}

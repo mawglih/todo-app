@@ -116,7 +116,7 @@ class TodosPage extends React.Component {
         todos,
       } = {},
     } = this.props;
-    console.log('redux todos: ', todos);
+    console.log('redux todos: ', typeof(todos));
     return (
       <div className={this.baseCls}>
         <Navbar filterBy={this.state.filterBy} onClickFilter={this.setFilterBy} />

@@ -22,7 +22,7 @@ app.get('/', (req, res) => {
 });
 
 app.get('/todos', (req, res) => {
-  res.json(JSON.stringify(todos));
+  res.json(todos);
 });
 
 app.get('/todos/:id', (req, res) => {
