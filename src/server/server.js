@@ -52,11 +52,15 @@ app.post('/todos', (req, res) => {
 });
 
 app.delete('/todos/:id', (req, res) => {
-  res.status(500).send({ message: 'not implemented' });
+  // res.status(500).send({ message: 'not implemented' });
+  const id = req.params.id;
+  todos.splice(id, 0);
 });
 
 app.put('/todos/:id', (req, res) => {
-  res.status(500).send({ message: 'not implemented' });
+  // res.status(500).send({ message: 'not implemented' });
+  const id = req.params.id;
+  todos.splice(id, 1);
 });
 
 // Node server.

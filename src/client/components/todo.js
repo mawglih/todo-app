@@ -6,35 +6,36 @@ import TodoLink from './todo-link';
 
 const noop = () => {};
 
-/**
- * Prop Types
- * @private
- */
-const propTypes = {
-  filtered: PropTypes.bool,
-  onClickDelete: PropTypes.func,
-  onClickTodo: PropTypes.func,
-  status: PropTypes.string,
-  text: PropTypes.string,
-};
+// /**
+//  * Prop Types
+//  * @private
+//  */
+// const propTypes = {
+//   filtered: PropTypes.bool,
+//   onClickDelete: PropTypes.func,
+//   onClickTodo: PropTypes.func,
+//   status: PropTypes.string,
+//   text: PropTypes.string,
+// };
 
-/**
- * Default Props
- * @private
- */
-const defaultProps = {
-  filtered: false,
-  onClickDelete: noop,
-  onClickTodo: noop,
-  status: '',
-  text: '',
-};
+// /**
+//  * Default Props
+//  * @private
+//  */
+// const defaultProps = {
+//   filtered: false,
+//   onClickDelete: noop,
+//   onClickTodo: noop,
+//   status: '',
+//   text: '',
+// };
 
 /**
  * Todo component
  * @returns {ReactElement}
  */
 const Todo = ({ filtered, onClickDelete, onClickTodo, status, text }) => {
+  console.log("todo text: ", text);
   /**
    * Base CSS class
    */
@@ -53,7 +54,7 @@ const Todo = ({ filtered, onClickDelete, onClickTodo, status, text }) => {
   );
 }
 
-Todo.propTypes = propTypes;
-Todo.defaultProps = defaultProps;
+// Todo.propTypes = propTypes;
+// Todo.defaultProps = defaultProps;
 
 export default Todo;

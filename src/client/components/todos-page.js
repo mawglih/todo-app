@@ -1,8 +1,9 @@
 import { Link } from 'react-router';
 import PropTypes from 'prop-types';
 import React from 'react';
-
-import { api, getApiPromise } from '../helpers/api';
+import { connect } from 'react-redux';
+import { getTodosStart } from '../actions/todos';
+// import { api, getApiPromise } from '../helpers/api';
 import Button from './button';
 import Navbar from './navbar';
 import TodoForm from './todo-form';
@@ -52,8 +53,16 @@ class TodosPage extends React.Component {
    * Component did mount
    */
   componentDidMount() {
-    api('GET', null, this.updateTodos);
+    // api('GET', null, this.updateTodos);
+    const {
+      getTodosStart: dispatchTodos,
+    } = this.props;
+    dispatchTodos();
   }
+  // componentDidUpdate = (prevProps, prevState) => {
+  //   if (prevState && prevState.todos !== todos)
+  //   this.setState({ todos });
+  // }
 
   /**
    * Add todo
@@ -102,20 +111,26 @@ class TodosPage extends React.Component {
    * @returns {ReactElement}
    */
   render() {
+    const {
+      todos: {
+        todos,
+      } = {},
+    } = this.props;
+    console.log('redux todos: ', todos);
     return (
       <div className={this.baseCls}>
         <Navbar filterBy={this.state.filterBy} onClickFilter={this.setFilterBy} />
 
         <TodoForm onSubmit={this.addTodo} />
-
         <Todos
           filterBy={this.state.filterBy}
-          todos={this.state.todos}
+          todos={todos}
           updateTodos={this.updateTodos}
         />
+        <Button text="Archive" />
       </div>
     );
   }
 }
 
-export default TodosPage;
+export default connect(({todos}) => ({todos}), { getTodosStart })(TodosPage);

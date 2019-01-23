@@ -1,7 +1,14 @@
 // Navbar module
 .navbar {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  padding-left: 1rem;
+  background-color: map-get($colors, lightgray);
   &__item {
     text-decoration: none;
+    padding: 5px 1rem;
+    cursor: pointer;
   }
 
   &__item--active {
