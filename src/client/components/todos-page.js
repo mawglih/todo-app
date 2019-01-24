@@ -41,6 +41,7 @@ class TodosPage extends React.Component {
     this.state = {
       todos: [],
       filterBy: null,
+      archive: false,
     };
 
     this.addTodo = this.addTodo.bind(this);
@@ -106,6 +107,18 @@ class TodosPage extends React.Component {
     this.setState({ todos });
   }
 
+  onCheck = e => {
+    e.preventDefault();
+    console.log('check clicked');
+    // if(e.input.value === 'checked') {
+    //   this.setState({
+    //     archive: true,
+    //   });
+    // }
+    // this.setState({
+    //   archive: false,
+    // });
+  }
   /**
    * Render
    * @returns {ReactElement}
@@ -120,14 +133,17 @@ class TodosPage extends React.Component {
     return (
       <div className={this.baseCls}>
         <Navbar filterBy={this.state.filterBy} onClickFilter={this.setFilterBy} />
+        <div className="container">
+          <TodoForm onSubmit={this.addTodo} />
+          <Todos
+            filterBy={this.state.filterBy}
+            todos={todos}
+            updateTodos={this.updateTodos}
+            onCheck={this.onCheck}
+            archive={this.state.archive}
+          />
+        </div>
 
-        <TodoForm onSubmit={this.addTodo} />
-        <Todos
-          filterBy={this.state.filterBy}
-          todos={todos}
-          updateTodos={this.updateTodos}
-        />
-        <Button text="Archive" />
       </div>
     );
   }

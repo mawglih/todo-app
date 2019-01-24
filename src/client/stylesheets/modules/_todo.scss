@@ -1,6 +1,17 @@
 // Todo module.
+.archive {
+  background-color: $green;
+  color: map-get($colors, ui-light);
+}
 .todo {
   cursor: pointer;
+  display: flex;
+  width: 100%;
+  align-items: center;
+  justify-content: space-between;
+  font-size: 1.5rem;
+  padding: 2rem;
+  color: $darkgray;
 
   &--status-complete {
     text-decoration: line-through;
@@ -8,5 +19,8 @@
 
   &--filtered {
     display: none;
+  }
+  & > .todo-link {
+    flex: 1 1 90%;
   }
 }

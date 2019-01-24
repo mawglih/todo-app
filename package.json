@@ -7,7 +7,8 @@
     "clean": "rimraf build",
     "build": "npm run clean && webpack",
     "test": "npm test",
-    "start": "node src/server/server.js"
+    "start": "node src/server/server.js",
+    "compile-sass": "node-sass ./src/client/stylesheets/style.scss ./src/index.css -w"
   },
   "repository": {
     "type": "git",
@@ -32,6 +33,7 @@
     "babel-preset-es2016": "^6.24.1",
     "babel-preset-stage-0": "^6.24.1",
     "body-parser": "1.18.3",
+    "classnames": "^2.2.6",
     "connected-react-router": "^6.2.2",
     "css-loader": "2.0.2",
     "ejs": "2.6.1",

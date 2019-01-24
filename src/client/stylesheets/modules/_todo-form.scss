@@ -1,0 +1,17 @@
+// todo-form module
+.formContainer {
+  align-self: center;
+  margin: 4rem 0;
+  padding: 1rem;
+  width: 40vw;
+  & > form > input {
+    width: 100%;
+    padding: .5rem 1rem;
+    border: map-get($colors, lightgray) 1px solid;
+    border-radius: 2px;
+    &::placeholder {
+      color: map-get($colors, gray);
+      font-size: 1rem;
+    }
+  }
+}
