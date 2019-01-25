@@ -1,5 +1,7 @@
 import PropTypes from 'prop-types';
 import React from 'react';
+import { connect } from 'react-redux';
+import { addTodosStart } from '../actions/todos';
 
 const noop = () => {};
 
@@ -55,8 +57,17 @@ class TodoForm extends React.Component {
    */
   onSubmit(e) {
     e.preventDefault();
+    const newTodo = {
+      text: this.state.input,
+    };
+    
+    const {
+      addTodosStart: dispatchAddTodos,
+    } = this.props;
+    console.log('new todo is: ', newTodo);
+    dispatchAddTodos(newTodo);
+    // this.props.onSubmit(this.state.input);
 
-    this.props.onSubmit(this.state.input);
 
     this.setState({ input: '' });
   }
@@ -81,4 +92,4 @@ class TodoForm extends React.Component {
   }
 }
 
-export default TodoForm;
+export default connect(null, { addTodosStart })(TodoForm);

@@ -10,7 +10,7 @@ app.set('view engine', 'ejs');
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
-const todos = [
+let todos = [
   { id: 1, text: 'Hello, world!' },
   { id: 2, text: 'Pick up groceries', status: 'complete' }
 ];
@@ -35,20 +35,22 @@ app.get('/todos/:id', (req, res) => {
 });
 
 app.post('/todos', (req, res) => {
-  const text = req.body.data.text;
-
+  const text = req.body.text;
+  console.log('data: ', text);
   if (!text) {
     res.status(400).json({ message: 'text is required' });
 
     return;
+  } else {
+
+  const id = todos.length + Date.now();
+  const newTodo = { id: id, text: text, status: 'active' };
+  console.log(newTodo);
+  res.status(201).json(newTodo);
   }
-
-  const id = todos.length + 1;
-  const newTodo = { id, text, status: 'active' };
-
-  todos.push(newTodo);
-
-  res.status(201).json(todos);
+  // console.log(text);
+  // console.log(id);
+  
 });
 
 app.delete('/todos/:id', (req, res) => {

@@ -129,18 +129,25 @@ class TodosPage extends React.Component {
         todos,
       } = {},
     } = this.props;
+    const {
+      filterBy,
+      archive,
+    } = this.state;
     console.log('redux todos: ', typeof(todos));
     return (
       <div className={this.baseCls}>
         <Navbar filterBy={this.state.filterBy} onClickFilter={this.setFilterBy} />
         <div className="container">
+          <div>
+            <span>{`${todos.length} todos in the list`}</span>
+          </div>
           <TodoForm onSubmit={this.addTodo} />
           <Todos
-            filterBy={this.state.filterBy}
+            filterBy={filterBy}
             todos={todos}
             updateTodos={this.updateTodos}
             onCheck={this.onCheck}
-            archive={this.state.archive}
+            archive={archive}
           />
         </div>
 

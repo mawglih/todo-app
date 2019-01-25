@@ -1,5 +1,5 @@
 import PropTypes from 'prop-types';
-import React from 'react';
+import React, { Fragment } from 'react';
 
 import { api } from '../helpers/api';
 import Todo from './todo';
@@ -128,24 +128,26 @@ const Todos = ({
       }
 
       return (
-        <Todo
-          key={todo.id}
-          filtered={filtered}
-          onClickDelete={onClickDelete.bind(this, todo)}
-          onClickTodo={onClickTodo.bind(this, todo)}
-          status={todo.status}
-          text={todo.text}
-          onCheck={onCheck}
-          archive={archive}
-        />
+          <Todo
+            key={todo.id}
+            filtered={filtered}
+            onClickDelete={onClickDelete.bind(this, todo)}
+            onClickTodo={onClickTodo.bind(this, todo)}
+            status={todo.status}
+            text={todo.text}
+            onCheck={onCheck}
+            archive={archive}
+          />
       );
     })
   }
 
   return (
-    <ul className={baseCls}>
-      {renderTodos()}
-    </ul>
+    <Fragment>
+      <ul className={baseCls}>
+        {renderTodos()}
+      </ul>
+    </Fragment>
   )
 };
 
