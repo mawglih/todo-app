@@ -9,10 +9,12 @@ import {
   GET_TODOS_SUCCESS,
   ADD_TODOS_START,
   ADD_TODOS_SUCCESS,
+  DELETE_TODOS_START,
+  DELETE_TODOS_SUCCESS,
 } from '../actions/todos';
  import axios from 'axios';
 
- const URL = 'http://localhost:3000/todos';
+ const URL = 'http://localhost:3000/todos/';
 
  export function* getTodoStartSaga() {
    try {
@@ -36,7 +38,8 @@ import {
      yield console.log('todo saga error: ', err);
    }
  }
- export function* addTodoStartSaga({payload}) {
+
+export function* addTodoStartSaga({payload}) {
    const {
      text,
    } = payload
@@ -65,9 +68,34 @@ import {
   }
 }
 
+export function* deleteTodosStartSaga({payload: id}) {
+  console.log('to delete id is: ', id);
+ try {
+   const {
+     data,
+     status,
+   } = yield call(axios, {
+     method: 'delete',
+     url: URL + id,
+   });
+   if (status ===201) {
+    yield console.log('delete todos: ', data);
+    yield put({
+      type: DELETE_TODOS_SUCCESS,
+      payload: data,
+    });
+   } else {
+     throw data;
+   }
+ } catch (err) {
+   yield console.log('delete todo saga error: ', err);
+ }
+}
+
  export function* getTodoSaga() {
    yield takeEvery(GET_TODOS_START, getTodoStartSaga);
    yield takeLatest(ADD_TODOS_START, addTodoStartSaga);
+   yield takeEvery(DELETE_TODOS_START, deleteTodosStartSaga);
  }
 
  export default [

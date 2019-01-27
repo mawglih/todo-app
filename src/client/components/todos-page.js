@@ -107,18 +107,6 @@ class TodosPage extends React.Component {
     this.setState({ todos });
   }
 
-  onCheck = e => {
-    e.preventDefault();
-    console.log('check clicked');
-    // if(e.input.value === 'checked') {
-    //   this.setState({
-    //     archive: true,
-    //   });
-    // }
-    // this.setState({
-    //   archive: false,
-    // });
-  }
   /**
    * Render
    * @returns {ReactElement}
@@ -131,7 +119,6 @@ class TodosPage extends React.Component {
     } = this.props;
     const {
       filterBy,
-      archive,
     } = this.state;
     console.log('redux todos: ', typeof(todos));
     return (
@@ -146,8 +133,6 @@ class TodosPage extends React.Component {
             filterBy={filterBy}
             todos={todos}
             updateTodos={this.updateTodos}
-            onCheck={this.onCheck}
-            archive={archive}
           />
         </div>
 
@@ -156,4 +141,6 @@ class TodosPage extends React.Component {
   }
 }
 
-export default connect(({todos}) => ({todos}), { getTodosStart })(TodosPage);
+export default connect(({todos}) => ({todos}), {
+  getTodosStart,
+})(TodosPage);

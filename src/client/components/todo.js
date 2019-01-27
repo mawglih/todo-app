@@ -1,34 +1,34 @@
 import PropTypes from 'prop-types';
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
 import cn from 'classnames';
 import Button from './button';
 import TodoLink from './todo-link';
+import { deleteTodosStart } from '../actions/todos';
 
 const noop = () => {};
 
-// /**
-//  * Prop Types
-//  * @private
-//  */
-// const propTypes = {
-//   filtered: PropTypes.bool,
-//   onClickDelete: PropTypes.func,
-//   onClickTodo: PropTypes.func,
-//   status: PropTypes.string,
-//   text: PropTypes.string,
-// };
+/**
+ * Prop Types
+ * @private
+ */
+const propTypes = {
+  filtered: PropTypes.bool,
+  onClickTodo: PropTypes.func,
+  status: PropTypes.string,
+  text: PropTypes.string,
+};
 
-// /**
-//  * Default Props
-//  * @private
-//  */
-// const defaultProps = {
-//   filtered: false,
-//   onClickDelete: noop,
-//   onClickTodo: noop,
-//   status: '',
-//   text: '',
-// };
+/**
+ * Default Props
+ * @private
+ */
+const defaultProps = {
+  filtered: false,
+  onClickTodo: noop,
+  status: '',
+  text: '',
+};
 
 /**
  * Todo component
@@ -50,19 +50,24 @@ class Todo extends Component {
       });
     }
   }
+  deleteTodo = (id) => {
+    const {
+      deleteTodosStart: dispatchDelete,
+    } = this.props;
+    dispatchDelete(id);
+  }
+
   render() {
     const {
       filtered,
-      onClickDelete,
       onClickTodo,
       status,
       text,
+      _id,
       } = this.props
     const {
       archive,
     } = this.state;
-    console.log("todo text: ", text);
-    console.log("archive: ", archive);
     /**
      * Base CSS class
      */
@@ -71,9 +76,6 @@ class Todo extends Component {
     const todoCls = baseCls
       + (status === 'complete' ? ' todo--status-complete' : '')
       + (filtered ? ' todo--filtered' : '');
-    
-    // const buttonCls =  archive ? 'archive' : 'display-none';
-  
 
     return (
       <li className={todoCls}>
@@ -87,13 +89,12 @@ class Todo extends Component {
         <button className={cn(
           archive ? 'archive' : 'display-none'
         )}>Archive</button>
-
-        <Button text="x" onClick={onClickDelete} />
+        <button onClick={() => this.deleteTodo(_id)}>x</button>
       </li>
     );
   }
 }
-// Todo.propTypes = propTypes;
-// Todo.defaultProps = defaultProps;
+Todo.propTypes = propTypes;
+Todo.defaultProps = defaultProps;
 
-export default Todo;
+export default connect(null, { deleteTodosStart })(Todo);

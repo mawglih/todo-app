@@ -10,7 +10,7 @@ app.set('view engine', 'ejs');
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
-let todos = [
+const todos = [
   { id: 1, text: 'Hello, world!' },
   { id: 2, text: 'Pick up groceries', status: 'complete' }
 ];
@@ -56,7 +56,13 @@ app.post('/todos', (req, res) => {
 app.delete('/todos/:id', (req, res) => {
   // res.status(500).send({ message: 'not implemented' });
   const id = req.params.id;
-  todos.splice(id, 0);
+  console.log('server id receieved to delete: ', id);
+  const removeIndex = todos
+    .map(todo => todo.id)
+    .indexOf(id);
+  // todos.splice(removeIndex, 1);
+  console.log('todos filtered: ', todos[removeIndex]);
+  res.status(201).json(todos[removeIndex]);
 });
 
 app.put('/todos/:id', (req, res) => {

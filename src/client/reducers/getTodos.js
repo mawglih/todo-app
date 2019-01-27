@@ -1,6 +1,7 @@
 import {
   GET_TODOS_SUCCESS,
   ADD_TODOS_SUCCESS,
+  DELETE_TODOS_SUCCESS,
 } from '../actions/todos';
 
 const INITIAL_STATE = {
@@ -14,6 +15,12 @@ const GetTodosReducer = (state = INITIAL_STATE, { type, payload }) => {
       return {
         ...state,
         todos: payload,
+        loading: false,
+      };
+    case DELETE_TODOS_SUCCESS:
+      return {
+        ...state,
+        todos: todos.splice(infexOf(payload), 1),
         loading: false,
       };
     case ADD_TODOS_SUCCESS:

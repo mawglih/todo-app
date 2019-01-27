@@ -1,6 +1,7 @@
 import PropTypes from 'prop-types';
 import React, { Fragment } from 'react';
-
+import { connect } from 'react-redux';
+import { deleteTodosStart } from '../actions/todos';
 import { api } from '../helpers/api';
 import Todo from './todo';
 
@@ -34,14 +35,13 @@ const Todos = ({
   filterBy,
   todos,
   updateTodos,
-  archive,
-  onCheck,
  }) => {
-   console.log('in todos: ', todos);
   /**
    * Base CSS class
    */
   const baseCls = 'todos';
+
+
 
   /**
    * Callback function to delete todo from todos collection
@@ -50,6 +50,7 @@ const Todos = ({
    */
   const deleteTodo = json => {
     const index = todos.findIndex(todo => {
+      console.log('id in delete: ', todo.id);
       return todo.id === json.id;
     });
 
@@ -86,9 +87,9 @@ const Todos = ({
    *
    * @param {object} todo - Todo object
    */
-  const onClickDelete = todo => {
-    api('DELETE', todo, deleteTodo);
-  };
+  // const onClickDelete = todo => {
+  //   api('DELETE', todo, deleteTodo);
+  // };
 
   /**
    * Click handler for clicking on the todo
@@ -103,7 +104,7 @@ const Todos = ({
 
     api('PUT', newTodo, putTodo);
   }
-
+  
   /**
    * Renders All Todos
    *
@@ -131,12 +132,11 @@ const Todos = ({
           <Todo
             key={todo.id}
             filtered={filtered}
-            onClickDelete={onClickDelete.bind(this, todo)}
             onClickTodo={onClickTodo.bind(this, todo)}
+            onClickDelete={() => deleteTodosStart(todo.id)}
             status={todo.status}
             text={todo.text}
-            onCheck={onCheck}
-            archive={archive}
+            _id={todo.id}
           />
       );
     })
