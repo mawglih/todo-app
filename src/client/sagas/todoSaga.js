@@ -3,6 +3,7 @@ import {
   put,
   takeEvery,
   takeLatest,
+  fork,
 } from 'redux-saga/effects';
 import {
   GET_TODOS_START,
@@ -13,6 +14,7 @@ import {
   DELETE_TODOS_SUCCESS,
 } from '../actions/todos';
  import axios from 'axios';
+
 
  const URL = 'http://localhost:3000/todos/';
 
@@ -93,9 +95,9 @@ export function* deleteTodosStartSaga({payload: id}) {
 }
 
  export function* getTodoSaga() {
-   yield takeEvery(GET_TODOS_START, getTodoStartSaga);
-   yield takeLatest(ADD_TODOS_START, addTodoStartSaga);
-   yield takeEvery(DELETE_TODOS_START, deleteTodosStartSaga);
+   yield fork(takeEvery(GET_TODOS_START, getTodoStartSaga));
+   yield fork(takeLatest(ADD_TODOS_START, addTodoStartSaga));
+   yield fork(takeEvery(DELETE_TODOS_START, deleteTodosStartSaga));
  }
 
  export default [
