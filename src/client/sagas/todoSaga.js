@@ -95,9 +95,9 @@ export function* deleteTodosStartSaga({payload: id}) {
 }
 
  export function* getTodoSaga() {
-   yield fork(takeEvery(GET_TODOS_START, getTodoStartSaga));
-   yield fork(takeLatest(ADD_TODOS_START, addTodoStartSaga));
-   yield fork(takeEvery(DELETE_TODOS_START, deleteTodosStartSaga));
+   yield takeEvery(GET_TODOS_START, getTodoStartSaga);
+   yield takeLatest(ADD_TODOS_START, addTodoStartSaga);
+   yield takeEvery(DELETE_TODOS_START, deleteTodosStartSaga);
  }
 
  export default [
